@@ -3,12 +3,17 @@
     margin: 0; padding: 0;
 }
 
+@font-face {
+    font-family: Orbitron-M;
+    src: url(fonts/Orbitron-Medium.ttf);
+}
+
 body{
     background: url("background/Minato, Japan.jpg") no-repeat center;
-    background-size: auto;
+    background-size: cover;
     text-align: center ;
     color: white;
-    font-family: Verdana, sans-serif;
+    font-family: Orbitron-M,sans-serif;
 }
 
 canvas{
@@ -17,6 +22,7 @@ canvas{
 }
 
 h1{
+    font-family: Orbitron-M,sans-serif;
     padding: 10px;
     color: rgba(0, 255, 0, 0.65);
     text-shadow: 0 0 10px lime;
@@ -44,23 +50,11 @@ h1{
 }
 #gameOver h3{
     color: rgba(255, 0, 0, 0.9);
-    font-size: 39px;
+    font-size: 30px;
     letter-spacing: 2px;
     text-transform: uppercase;
     text-shadow: 0 0 10px red;
 }
-
-.btns>button{
-    margin: 15px 10px;
-    padding: 5px 10px;
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
-    text-shadow: 0 0 3px white; letter-spacing: 2px;
-    border-radius:5px;
-    font-size: 20px;
-    cursor: pointer;
-}
-
 #instructor{
     position: absolute;
     margin:auto;
@@ -73,7 +67,26 @@ h1{
     border-radius: 5px;
 }
 
-.btns>div button{
+#gameOver>#reset{
+    margin: 15px 10px;
+    padding: 5px 10px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    text-shadow: 0 0 3px white; letter-spacing: 2px;
+    border-radius:5px;
+    font-size: 16px;
+    cursor: pointer;
+    border: 1px solid;
+    font-family: Orbitron-M,sans-serif;
+}
+#gameOver>#reset:active{
+    text-shadow: 0 0 10px;
+    border: 1px solid black;
+    background: white;
+    color: black;
+}
+
+.buttons>.gameSpeed button{
     margin: 15px 6px 3px 0;
     padding: 5px 8px;
     background: rgba(0, 0, 0, 0.5);
@@ -81,36 +94,55 @@ h1{
     border-radius: 5px;
     border: 1px solid;
     cursor: pointer;
+    font-weight: bold;
+    font-family: Orbitron-M,sans-serif;
 }
-.btns>div button:active{
+.buttons>.gameSpeed button:active{
     text-shadow: 0 0 10px ;
     border: 1px solid black;
  }
-.btns>div #normal{
+.buttons>div #normal{
     color: yellow;
 }
-.btns>div #hard{
+.buttons>div #fast{
     color: red;
 }
 
 #score{
+    display: inline-block;
+    padding: 0 6px;
     color: lime;
 }
 
 .unsupport{
     display: none;
 }
-@media screen and (max-width: 820px) {
+
+
+@media screen and (max-width: 1600px) {
+    body {
+        background: url("background/Minato, Japan.jpg") no-repeat center;
+    }
     canvas{
         width: 650px;
-        height: 500px;
+        height: 450px;
     }
 }
 
-@media screen and (max-width: 665px) {
-    body{
-        background: url("background/Minato, Japan.jpg") no-repeat;
+@media screen and (max-width: 1000px) {
+
+    canvas{
+        width: 550px;
+        height: 350px;
     }
+}
+
+@media screen and (max-width: 820px) {
+
+}
+
+@media screen and (max-width: 665px) {
+
     canvas{
         width: 0;
         height: 0;
@@ -119,7 +151,7 @@ h1{
     #game-zone{
         display: none;
     }
-    .btns{
+    .buttons{
         display: none;
     }
     .unsupport{

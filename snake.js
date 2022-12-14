@@ -36,11 +36,11 @@ window.onload = function (){
     resetBtn.addEventListener("click",resetGame);
 
     gameStart();
-    document.getElementById("easy").addEventListener("click",slow);
-    function slow(){    gameSpeed = 105;    }
+    document.getElementById("slow").addEventListener("click",slow);
+    function slow(){    gameSpeed = 130;    }
     document.getElementById("normal").addEventListener("click",normal);
-    function normal(){  gameSpeed = 70;     }
-    document.getElementById("hard").addEventListener("click",fast);
+    function normal(){  gameSpeed = 90;     }
+    document.getElementById("fast").addEventListener("click",fast);
     function fast(){    gameSpeed = 35;     }
 
     function gameStart(){
@@ -53,11 +53,11 @@ window.onload = function (){
 
     }
     function drawScore(){
-        context.font = "16.5px Verdana";
+        context.font = "16.5px Orbitron-M";
         context.fillStyle = "rgba(255, 255, 255)";
-        context.fillText("Score: ", unitSize,30 );
+        context.fillText("Score:  ", unitSize,30 );
         context.fillStyle = "lime";
-        context.fillText(score, unitSize*4,30 );
+        context.fillText("  " + score, unitSize*4,30 );
             if(score === 15){gameSpeed=70}
             if(score === 25){gameSpeed=63}
             if(score === 35){gameSpeed=57}
@@ -182,7 +182,7 @@ window.onload = function (){
         context.fillStyle = "cyan";
         context.fillRect(portal1X,portal1Y,unitSize*8,unitSize)
         portal1X = unitSize*16;
-        portal1Y = 598;
+        portal1Y = height-2;
 
         context.fillRect(portal2X,portal2Y,unitSize*8,unitSize)
         portal2X = unitSize*16;

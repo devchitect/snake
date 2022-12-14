@@ -18,19 +18,19 @@
         <div id="gameOver">
             <h3>Game Over</h3>
             <h4>Your Score: <span id="score"></span></h4>
+            <button id="reset">Restart</button>
         </div>
         <div id="instructor">
             <h4>Press any Arrow Key to Start!</h4>
         </div>
     </section>
 
-    <div class="btns">
-        <div>
-            <button id="easy" onclick="slow()">Slow</button>
-            <button id="normal">Normal</button>
-            <button id="hard">Fast</button>
+    <div class="buttons">
+        <div class="gameSpeed">
+            <button id="slow"   onclick="slow()">Slow</button>
+            <button id="normal" onclick="normal()">Normal</button>
+            <button id="fast"   onclick="fast()">Fast</button>
         </div>
-        <button id="reset">reset</button>
     </div>
 
     <div class="unsupport">
