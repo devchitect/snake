@@ -1,0 +1,132 @@
+*{
+    box-sizing: border-box;
+    margin: 0; padding: 0;
+}
+
+body{
+    background: url("background/Minato, Japan.jpg") no-repeat center;
+    background-size: auto;
+    text-align: center ;
+    color: white;
+    font-family: Verdana, sans-serif;
+}
+
+canvas{
+    width: 800px;
+    height: 600px;
+}
+
+h1{
+    padding: 10px;
+    color: rgba(0, 255, 0, 0.65);
+    text-shadow: 0 0 10px lime;
+    letter-spacing: 2px;
+}
+#game-zone{
+    position: relative;
+}
+
+#board{
+    box-shadow: 0 0 8px 3px grey;
+}
+
+#gameOver{
+    position: absolute;
+    margin:auto;
+    left: 0;
+    right: 0;
+    top: 40%;
+    background: black;
+    width: 350px;
+    padding: 10px;
+    border-radius: 5px;
+    visibility: hidden;
+}
+#gameOver h3{
+    color: rgba(255, 0, 0, 0.9);
+    font-size: 39px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px red;
+}
+
+.btns>button{
+    margin: 15px 10px;
+    padding: 5px 10px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    text-shadow: 0 0 3px white; letter-spacing: 2px;
+    border-radius:5px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#instructor{
+    position: absolute;
+    margin:auto;
+    left: 0;
+    right: 0;
+    top: 45%;
+    background: black;
+    width: 350px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.btns>div button{
+    margin: 15px 6px 3px 0;
+    padding: 5px 8px;
+    background: rgba(0, 0, 0, 0.5);
+    color: lime;
+    border-radius: 5px;
+    border: 1px solid;
+    cursor: pointer;
+}
+.btns>div button:active{
+    text-shadow: 0 0 10px ;
+    border: 1px solid black;
+ }
+.btns>div #normal{
+    color: yellow;
+}
+.btns>div #hard{
+    color: red;
+}
+
+#score{
+    color: lime;
+}
+
+.unsupport{
+    display: none;
+}
+@media screen and (max-width: 820px) {
+    canvas{
+        width: 650px;
+        height: 500px;
+    }
+}
+
+@media screen and (max-width: 665px) {
+    body{
+        background: url("background/Minato, Japan.jpg") no-repeat;
+    }
+    canvas{
+        width: 0;
+        height: 0;
+    }
+
+    #game-zone{
+        display: none;
+    }
+    .btns{
+        display: none;
+    }
+    .unsupport{
+        display: block;
+        background: black; border-radius: 5px;
+        margin:100px auto;
+        padding: 30px 15px;
+        width: 90%;
+    }
+}
