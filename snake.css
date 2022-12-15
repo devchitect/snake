@@ -33,7 +33,9 @@ h1{
 }
 
 #board{
-    box-shadow: 0 0 8px 3px grey;
+    box-shadow: 0 0 5px 3px #232323,
+                0 0 10px 1px lightgrey;
+    border-radius: 5px;
 }
 
 #gameOver{
@@ -89,17 +91,19 @@ h1{
 .buttons>.gameSpeed button{
     margin: 15px 6px 3px 0;
     padding: 5px 8px;
-    background: rgba(0, 0, 0, 0.5);
+    background: black;
     color: lime;
     border-radius: 5px;
-    border: 1px solid;
+    border: 2px solid black;
+    text-shadow: 0 0 20px,
+    0 0 30px;
     cursor: pointer;
     font-weight: bold;
     font-family: Orbitron-M,sans-serif;
 }
 .buttons>.gameSpeed button:active{
-    text-shadow: 0 0 10px ;
-    border: 1px solid black;
+
+    border: 2px solid;
  }
 .buttons>div #normal{
     color: yellow;
@@ -121,7 +125,8 @@ h1{
 
 @media screen and (max-width: 1600px) {
     body {
-        background: url("background/Minato, Japan.jpg") no-repeat center;
+        background:url("background/Minato, Japan.jpg") no-repeat center;
+        color: #009500;
     }
     canvas{
         width: 650px;
