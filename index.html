@@ -17,19 +17,28 @@
         <canvas id="board" width="800" height="600"></canvas>
         <div id="gameOver">
             <h3>Game Over</h3>
+            <h4>High Score:<span id="highScore"></span></h4>
             <h4>Your Score: <span id="score"></span></h4>
             <button id="reset">Restart</button>
         </div>
         <div id="instructor">
             <h4>Press any Arrow Key to Start!</h4>
         </div>
+        <div id="rank">
+            <h3>Top Players</h3>
+            <ol>
+                <li class="topscores"><span></span></li>
+                <li class="topscores"><span></span></li>
+                <li class="topscores"><span></span></li>
+            </ol>
+        </div>
     </section>
 
     <div class="buttons">
         <div class="gameSpeed">
-            <button id="slow"   onclick="slow()">Slow</button>
-            <button id="normal" onclick="normal()">Normal</button>
-            <button id="fast"   onclick="fast()">Fast</button>
+            <button id="slow"   >Slow</button>
+            <button id="normal" >Normal</button>
+            <button id="fast"   >Fast</button>
         </div>
     </div>
 

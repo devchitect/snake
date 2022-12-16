@@ -13,14 +13,18 @@ window.onload = function (){
     const pythonBorder = "black";
     const appleColor= "red";
     const gappleColor = "yellow";
+    const pappleColor = "#ff9500";
     const unitSize = 20;
 
     let running = false;
     let xVelocity = 0;
     let yVelocity = 0;
-    let appleX,gappleX;
-    let appleY,gappleY;
+    let appleX,gappleX,pappleX;
+    let appleY,gappleY,pappleY;
+
     let score = 0;
+    let highScore = 0;
+    let scores = [];
 
     let portal1X,portal2X;
     let portal1Y,portal2Y;
@@ -30,7 +34,6 @@ window.onload = function (){
 
     let python =[
         {x:unitSize*2   ,y:unitSize*10},
-
     ];
 
     window.addEventListener("keyup",changeDirection);
@@ -50,11 +53,13 @@ window.onload = function (){
 
         createPortal();
         locateApple();
-        locateGapple();
         drawApple();
+        locateGapple();
+        drawGapple();
         nextTick();
 
     }
+
 
     function drawScore(){
         context.font = "16.5px Orbitron-M";
@@ -81,9 +86,8 @@ window.onload = function (){
                 createPortal();
                 drawScore();
                 drawApple();
-                if(score % 5 === 0){
-                    drawGapple();
-                }
+                drawGapple();
+                drawPapple();
                 movePython();
                 drawPython();
                 checkGameOver();
@@ -111,10 +115,15 @@ window.onload = function (){
         function randomGapple(num){
             return Math.round((Math.random() * (num) / unitSize)) * unitSize;
         }
-
-
         gappleX = randomGapple(width-unitSize);
         gappleY = randomGapple(height-unitSize);
+    }
+    function locatePapple(){
+        function randomPapple(num){
+            return Math.round((Math.random() * (num) / unitSize)) * unitSize;
+        }
+        pappleX = randomPapple(width-unitSize);
+        pappleY = randomPapple(height-unitSize);
     }
     function drawApple(){
         context.fillStyle = appleColor;
@@ -124,7 +133,29 @@ window.onload = function (){
         context.fillStyle = gappleColor;
         context.fillRect(gappleX,gappleY,unitSize,unitSize);
     }
+    function drawPapple(){
+        context.fillStyle = pappleColor;
+        context.fillRect(pappleX,pappleY,unitSize,unitSize);
+    }
 
+    function hideGapple(){
+        let tempX = gappleX;
+        let tempY = gappleY;
+        context.clearRect(gappleX,gappleY,unitSize,unitSize);
+        gappleX = gappleY = -100;
+        context.fillStyle = "black";
+        context.fillRect(tempX,tempY,unitSize,unitSize);
+    }
+    function hidePapple(){
+        let tempX = pappleX;
+        let tempY = pappleY;
+        context.clearRect(pappleX,pappleY,unitSize,unitSize);
+        pappleX = pappleY = -100;
+        context.fillStyle = "black";
+        context.fillRect(tempX,tempY,unitSize,unitSize);
+    }
+
+    //!! Important
     function movePython(){
         const head = {x:python[0].x + xVelocity,
                       y:python[0].y + yVelocity};
@@ -134,10 +165,24 @@ window.onload = function (){
         if(python[0].x === appleX && python[0].y === appleY){
             score+= 1;
             locateApple();
+            if(score % 5 === 0){
+                locateGapple();
+                setInterval(()=> {
+                    context.fillStyle = "black";
+                    context.fillRect(gappleX,gappleY,unitSize,unitSize);}
+                    ,700);
+                setTimeout(hideGapple,7000);
+            }
+            if(score % 20 === 0){
+                locatePapple();
+            }
         }else if(python[0].x === gappleX && python[0].y === gappleY){
-            score+= 3;
-            locateGapple();
-        }else {
+            score+= 2;
+            hideGapple();
+        }else if(python[0].x === pappleX && python[0].y === pappleY){
+            score+=5;
+            hidePapple();
+        } else {
             python.pop();
         }
 
@@ -225,10 +270,44 @@ window.onload = function (){
 
     function gameOver(){
         document.getElementById("gameOver").style.visibility = "visible";
-        document.getElementById("score").innerText = score;
+        document.getElementById("score").innerText = score + "scores";
+
+        // if(score > highScore) {
+        //     scores.unshift(score);
+        //     highScore = scores[0];
+        // }
+        scores.push(score);
+        //sorting scores
+        let max = 0;
+        for(let i=0 ; i<scores.length; i++){
+            for (let j = i; j < scores.length ; j++) {
+                if(scores[i] <= scores[j]){
+                    max       = scores[j];
+                    scores[j] = scores[i];
+                    scores[i] = max;
+                }
+            }
+        }
+        highScore = scores[0];
+        document.querySelector("#highScore").innerText = highScore;
+        ranking();
+
     }
+    function ranking(){
+        const ranks = document.querySelectorAll(".topscores");
+
+        //display rank
+        if (scores.length){
+            for (let i = 0; i<ranks.length; i++){
+                ranks[i].innerText = scores[i];
+            }
+        }
+    }
+
+
     function resetGame(){
         if(!running){
+            gameSpeed = 110;
             score = 0;
             xVelocity = 0;
             yVelocity = 0;
@@ -237,10 +316,8 @@ window.onload = function (){
                 return Math.round((Math.random() * (num) / unitSize)) * unitSize;
             }
 
-
             python =[
                 {x:randomNum(width-unitSize),y:randomNum(height-unitSize)},
-                // {x:unitSize     ,y:unitSize*15},
             ];
 
             gameStart()
@@ -248,7 +325,6 @@ window.onload = function (){
             document.getElementById("gameOver").style.visibility = "hidden";
         }
     }
-
 
 
 }
