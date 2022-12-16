@@ -13,7 +13,7 @@ window.onload = function (){
     const pythonBorder = "black";
     const appleColor= "red";
     const gappleColor = "yellow";
-    const pappleColor = "#00ff85";
+    const pappleColor = "#00ff9d";
     const unitSize = 20;
 
     let running = false;
@@ -152,7 +152,7 @@ window.onload = function (){
         let tempX = pappleX;
         let tempY = pappleY;
         context.clearRect(pappleX,pappleY,unitSize,unitSize);
-        pappleX = pappleY = -100;
+        pappleX = pappleY = -50;
         context.fillStyle = "black";
         context.fillRect(tempX,tempY,unitSize,unitSize);
     }
@@ -265,18 +265,18 @@ window.onload = function (){
         context.fillStyle = "cyan";
         context.fillRect(portal1X,portal1Y,unitSize*8,unitSize)
         portal1X = unitSize*16;
-        portal1Y = height-2;
+        portal1Y = height-3;
 
         context.fillRect(portal2X,portal2Y,unitSize*8,unitSize)
         portal2X = unitSize*16;
-        portal2Y = -18;
+        portal2Y = -17;
 
         context.fillRect(portal3X,portal3Y,unitSize,unitSize*8)
-        portal3X = -18;
+        portal3X = -17;
         portal3Y = unitSize*11;
 
         context.fillRect(portal4X,portal4Y,unitSize,unitSize*8)
-        portal4X = width-2;
+        portal4X = width-3;
         portal4Y = unitSize*11;
     }
     function throughPortal() {

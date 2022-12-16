@@ -18,19 +18,25 @@ body{
 canvas{
     width: 800px;
     height: 600px;
+    padding: 5px;
+    border: 8px double rgba(255, 255, 255, 0.5);
 }
-
-h1{
-    width: 10%;
-    text-align: center;
+.title{
+    display: flex;
+    justify-content: center;
+}
+.title > h1{
+    display: inline-block;
     margin: 8px auto 15px;
     font-family: Orbitron-M,sans-serif;
-    padding: 5px;
+    padding: 4px 15px 6px;
     color: rgba(0, 255, 0, 0.65);
     text-shadow: 0 0 10px lime;
     letter-spacing: 2px;
     border: 1px solid lime; border-radius: 5px;
-    box-shadow: 0 0 3px 2px lime;
+    box-shadow: 0 0 3px 2px lime,
+    0 0 10px rgba(0, 255, 0, 0.8),
+    0 0 30px rgba(0, 255, 0, 0.5);
 }
 #game-zone{
     position: relative;
@@ -39,7 +45,7 @@ h1{
 
 #board{
     box-shadow: 0 0 5px 3px #232323,
-                0 0 10px 1px lightgrey;
+                0 0 25px 1px #8e8e8e;
     border-radius: 5px;
 }
 
@@ -86,6 +92,10 @@ h1{
     border: 1px solid;
     font-family: Orbitron-M,sans-serif;
 }
+#gameOver>#reset:hover{
+    background: #6e6e6e;
+    color: white;
+}
 #gameOver>#reset:active{
     text-shadow: 0 0 10px;
     border: 1px solid black;
@@ -127,7 +137,7 @@ h1{
     background: black;
     color: lime;
     border-radius: 5px;
-    border: 2px solid black;
+    border: 3px solid black;
     text-shadow: 0 0 20px,
     0 0 30px;
     cursor: pointer;
@@ -135,9 +145,12 @@ h1{
     font-family: Orbitron-M,sans-serif;
     box-shadow: 0 0 2px 1px;
 }
+.buttons>.gameSpeed button:hover{
+    background: rgba(68, 68, 68, 0.51);
+}
 .buttons>.gameSpeed button:active{
-
-    border: 2px solid;
+    border: 3px solid;
+    outline: 1px solid ;
  }
 .buttons>div #normal{
     color: yellow;
@@ -154,6 +167,9 @@ h1{
 
 .unsupport{
     display: none;
+}
+.unsupport>h1{
+
 }
 
 
