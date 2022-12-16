@@ -8,12 +8,12 @@ window.onload = function (){
 
     const resetBtn = document.getElementById("reset");
 
-    const boardBg = "black";
+    const boardBg = "rgba(0, 0, 0, 0.5)";
     const pythonColor = "lime";
     const pythonBorder = "black";
     const appleColor= "red";
     const gappleColor = "yellow";
-    const pappleColor = "#ff9500";
+    const pappleColor = "#00ff85";
     const unitSize = 20;
 
     let running = false;
@@ -26,8 +26,8 @@ window.onload = function (){
     let highScore = 0;
     let scores = [];
 
-    let portal1X,portal2X;
-    let portal1Y,portal2Y;
+    let portal1X,portal2X,portal3X,portal4X;
+    let portal1Y,portal2Y,portal3Y,portal4Y;
     // let portals = [];
 
     let gameSpeed = 111;
@@ -171,16 +171,21 @@ window.onload = function (){
                     context.fillStyle = "black";
                     context.fillRect(gappleX,gappleY,unitSize,unitSize);}
                     ,700);
-                setTimeout(hideGapple,7000);
+                setTimeout(hideGapple,9000);
             }
             if(score % 20 === 0){
                 locatePapple();
+                setInterval(()=> {
+                        context.fillStyle = "black";
+                        context.fillRect(pappleX,pappleY,unitSize,unitSize);}
+                    ,400);
+                setTimeout(hidePapple,4500);
             }
         }else if(python[0].x === gappleX && python[0].y === gappleY){
-            score+= 2;
+            score+= 3;
             hideGapple();
         }else if(python[0].x === pappleX && python[0].y === pappleY){
-            score+=5;
+            score+=6;
             hidePapple();
         } else {
             python.pop();
@@ -263,6 +268,14 @@ window.onload = function (){
         context.fillRect(portal2X,portal2Y,unitSize*8,unitSize)
         portal2X = unitSize*16;
         portal2Y = -18;
+
+        context.fillRect(portal3X,portal3Y,unitSize,unitSize*8)
+        portal3X = -18;
+        portal3Y = unitSize*11;
+
+        context.fillRect(portal4X,portal4Y,unitSize,unitSize*8)
+        portal4X = width-2;
+        portal4Y = unitSize*11;
     }
     function throughPortal() {
 
