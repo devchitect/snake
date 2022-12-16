@@ -110,8 +110,7 @@ h1{
     padding:10px 5px 10px 66px;
     text-align: start;
     line-height: 25px;
-    list-style: upper-roman;
-    list-style-position: outside;
+    list-style: upper-roman outside;
 
 }
 

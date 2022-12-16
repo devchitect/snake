@@ -56,7 +56,7 @@ window.onload = function (){
         drawApple();
         locateGapple();
         drawGapple();
-        nextTick();
+        frame();
 
     }
 
@@ -79,7 +79,7 @@ window.onload = function (){
         console.log(gameSpeed);
     }
 
-    function nextTick(){
+    function frame(){
         if(running){
             setTimeout(()=>{
                 clearBoard();
@@ -91,7 +91,7 @@ window.onload = function (){
                 movePython();
                 drawPython();
                 checkGameOver();
-                nextTick();
+                frame();
 
             },gameSpeed);
         }
