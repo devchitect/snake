@@ -28,7 +28,9 @@ window.onload = function (){
 
     let portal1X,portal2X,portal3X,portal4X;
     let portal1Y,portal2Y,portal3Y,portal4Y;
-    // let portals = [];
+
+    //
+    let portals = [];
 
     let gameSpeed = 111;
 

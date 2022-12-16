@@ -23,7 +23,7 @@ canvas{
 h1{
     width: 10%;
     text-align: center;
-    margin: 20px auto;
+    margin: 8px auto 15px;
     font-family: Orbitron-M,sans-serif;
     padding: 5px;
     color: rgba(0, 255, 0, 0.65);
