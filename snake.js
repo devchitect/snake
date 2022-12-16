@@ -270,7 +270,7 @@ window.onload = function (){
 
     function gameOver(){
         document.getElementById("gameOver").style.visibility = "visible";
-        document.getElementById("score").innerText = score + "scores";
+        document.getElementById("score").innerText = score;
 
         // if(score > highScore) {
         //     scores.unshift(score);
