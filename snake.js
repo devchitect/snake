@@ -299,7 +299,7 @@ window.onload = function (){
         //display rank
         if (scores.length){
             for (let i = 0; i<ranks.length; i++){
-                ranks[i].innerText = scores[i];
+                ranks[i].innerText = " " + scores[i];
             }
         }
     }
