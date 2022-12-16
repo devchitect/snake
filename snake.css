@@ -21,12 +21,16 @@ canvas{
 }
 
 h1{
-    text-align: center ;
+    width: 10%;
+    text-align: center;
+    margin: 20px auto;
     font-family: Orbitron-M,sans-serif;
-    padding: 10px;
+    padding: 5px;
     color: rgba(0, 255, 0, 0.65);
     text-shadow: 0 0 10px lime;
     letter-spacing: 2px;
+    border: 1px solid lime; border-radius: 5px;
+    box-shadow: 0 0 3px 2px lime;
 }
 #game-zone{
     position: relative;
@@ -129,6 +133,7 @@ h1{
     cursor: pointer;
     font-weight: bold;
     font-family: Orbitron-M,sans-serif;
+    box-shadow: 0 0 2px 1px;
 }
 .buttons>.gameSpeed button:active{
 
