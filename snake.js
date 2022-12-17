@@ -223,7 +223,7 @@ window.onload = function (){
                 setInterval(()=> {
                     context.fillStyle = "black";
                     context.fillRect(gappleX,gappleY,unitSize,unitSize);}
-                    ,800);
+                    ,500);
                 setTimeout(hideGapple,9000);
             }
             if(score % 20 === 0){
@@ -231,7 +231,7 @@ window.onload = function (){
                 setInterval(()=> {
                         context.fillStyle = "black";
                         context.fillRect(pappleX,pappleY,unitSize,unitSize);}
-                    ,500);
+                    ,750);
                 setTimeout(hidePapple,4500);
             }
         }else if(python[0].x === gappleX && python[0].y === gappleY){
