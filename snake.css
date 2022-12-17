@@ -146,14 +146,19 @@ canvas{
     font: inherit; font-size: 15px;
     border-radius: 5px;
     border: 1px solid black;
-    background: linear-gradient(90deg,#232526,#414345);
+    background: linear-gradient(90deg,rgba(67, 67, 67, 0.7),rgba(0, 0, 0, 0.7));
     color: white;
     cursor: pointer;
     letter-spacing: 1px;
+    text-shadow: 1px 1px 5px;
 }
 #speed-toggle:hover{
     text-shadow: 0 0 5px,
-    0 0 10px;
+    0 0 10px,
+    0 0 13px;
+}
+#speed-toggle:active{
+    outline: 2px solid white;
 }
 .gameSpeed{
     visibility: hidden;
@@ -194,10 +199,15 @@ canvas{
 }
 #mode-toggle{
     font: inherit;
-    padding: 5px;
+    padding: 3px 5px;
     margin: 5px 0 0;
     color: white;
-}
+    text-shadow: 1px 1px 5px;
+}#mode-toggle:hover{
+     text-shadow: 1px 1px 5px,
+                    1px 1px 10px;
+ }
+
 .modes{
     visibility: hidden;
 }
@@ -256,13 +266,13 @@ canvas{
 
     }
     canvas{
-        width: 730px;
-        height: 450px;
+        width: 750px;
+        height: 550px;
     }
     #rank{
 
         left: 2%;
-        width: 150px;
+        width: 180px;
         font-size: 15px ;
     }
     #rank>ol{
@@ -270,22 +280,31 @@ canvas{
     }
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1150px) {
 
     canvas{
-        width: 550px;
-        height: 450px;
+        width: 700px;
+        height: 500px;
     }
 
     #rank{
         left: 1%;
         width: 100px;
-        font-size: 15px ;
+        font-size: 11px;
+    }#rank>ol{
+        padding-left:20px ;
+         }
+}
+@media screen and (max-width: 900px) {
+
+    canvas{
+        width: 550px;
+        height: 450px;
     }
 }
 
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 750px) {
 
     canvas{
         width: 0;
