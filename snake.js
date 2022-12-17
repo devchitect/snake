@@ -13,9 +13,10 @@ window.onload = function (){
     const pythonBorder = "black";
     const appleColor= "red";
     const gappleColor = "yellow";
-    const pappleColor = "#00ff9d";
-    const unitSize = 20;
+    const pappleColor = "#ff00f2";
+    const portalColor = "#12FFF7";
 
+    const unitSize = 20;
     let running = false;
     let xVelocity = 0;
     let yVelocity = 0;
@@ -29,10 +30,8 @@ window.onload = function (){
     let portal1X,portal2X,portal3X,portal4X;
     let portal1Y,portal2Y,portal3Y,portal4Y;
 
-    //
-    let portals = [];
-
-    let gameSpeed = 111;
+    let speed = 111, speedMode = false;
+    let mode = 3;
 
     let python =[
         {x:unitSize*2   ,y:unitSize*10},
@@ -44,16 +43,48 @@ window.onload = function (){
 
     gameStart();
     document.getElementById("slow").addEventListener("click",slow);
-    function slow(){    gameSpeed = 130;    }
+    function slow(){    speed = 130; speedMode = true;   }
     document.getElementById("normal").addEventListener("click",normal);
-    function normal(){  gameSpeed = 90;     }
+    function normal(){  speed = 90;  speedMode = true;   }
     document.getElementById("fast").addEventListener("click",fast);
-    function fast(){    gameSpeed = 35;     }
+    function fast(){    speed = 35;  speedMode = true;  }
+
+    document.getElementById("classic").addEventListener("click",classic);
+    function classic(){ mode = 1 }
+    document.getElementById("infinity").addEventListener("click",infinity);
+    function infinity(){ mode = 2 }
+    document.getElementById("portal").addEventListener("click",teleport);
+    function teleport(){ mode = 3 }
+
+    let speedToggle = 1;
+    document.getElementById("speed-toggle").addEventListener("click",popUpSpeed);
+    function popUpSpeed(){
+        speedToggle += 1;
+        let speedMenu = document.querySelector(".gameSpeed");
+        if (speedToggle % 2 !== 0){
+            speedMenu.style.visibility = "hidden";
+        }
+        if(speedToggle % 2 === 0){
+            speedMenu.style.visibility = "visible";
+        }
+    }
+    let modeToggle = 1;
+    document.getElementById("mode-toggle").addEventListener("click",popUpMode);
+    function popUpMode(){
+        modeToggle += 1;
+        let modeMenu = document.querySelector(".modes");
+        if (modeToggle % 2 !== 0){
+            modeMenu.style.visibility = "hidden";
+        }
+        if(modeToggle % 2 === 0){
+            modeMenu.style.visibility = "visible";
+        }
+    }
 
     function gameStart(){
         running = true;
 
-        createPortal();
+        if(mode === 3){createPortal();}
         locateApple();
         drawApple();
         locateGapple();
@@ -69,23 +100,25 @@ window.onload = function (){
         context.fillText("Score:  ", unitSize,30 );
         context.fillStyle = "lime";
         context.fillText("  " + score, unitSize*4,30 );
-            if(score === 10 || score > 10){gameSpeed=100}
-            if(score === 25 || score > 25){gameSpeed=90}
-            if(score === 35 || score > 35){gameSpeed=80}
-            if(score === 70 || score > 70){gameSpeed=70}
-            if(score === 90 || score >90){gameSpeed=60}
-            if(score === 105 || score > 105){gameSpeed=50}
-            if(score === 120 || score > 120){gameSpeed=40}
-            if(score === 135 || score > 135){gameSpeed=35}
+        if(!speedMode){
+            if(score > 10){speed=100}
+            if(score > 20){speed=90}
+            if(score > 30){speed=80}
+            if(score > 50){speed=70}
+            if(score > 65){speed=60}
+            if(score > 80){speed=50}
+            if(score > 120){speed=40}
+            if(score > 135){speed=35}
+        }
 
-        console.log(gameSpeed);
+        console.log(speed);
     }
 
     function frame(){
         if(running){
             setTimeout(()=>{
                 clearBoard();
-                createPortal();
+                if(mode === 3){createPortal();}
                 drawScore();
                 drawApple();
                 drawGapple();
@@ -95,7 +128,7 @@ window.onload = function (){
                 checkGameOver();
                 frame();
 
-            },gameSpeed);
+            },speed);
         }
         else {gameOver()}
     }
@@ -103,6 +136,23 @@ window.onload = function (){
     function clearBoard(){
         context.fillStyle = boardBg;
         context.fillRect(0,0,width,height);
+
+        if(mode === 1){
+            context.strokeStyle = "white";
+            context.strokeRect(0,0,width,height);
+            context.strokeRect(1,1,width-2,height-2);
+        }
+        if(mode === 2){
+            context.strokeStyle = "cyan";
+            context.strokeRect(0,0,width,height);
+            context.strokeRect(1,1,width-2,height-2);
+            context.strokeRect(2,2,width-4,height-4);
+        }
+        if(mode === 3){
+            context.strokeStyle = "#c800ff";
+            context.strokeRect(0,0,width,height);
+            context.strokeRect(1,1,width-2,height-2);
+        }
     }
 
     function locateApple(){
@@ -172,7 +222,7 @@ window.onload = function (){
                 setInterval(()=> {
                     context.fillStyle = "black";
                     context.fillRect(gappleX,gappleY,unitSize,unitSize);}
-                    ,700);
+                    ,800);
                 setTimeout(hideGapple,9000);
             }
             if(score % 20 === 0){
@@ -180,7 +230,7 @@ window.onload = function (){
                 setInterval(()=> {
                         context.fillStyle = "black";
                         context.fillRect(pappleX,pappleY,unitSize,unitSize);}
-                    ,400);
+                    ,500);
                 setTimeout(hidePapple,4500);
             }
         }else if(python[0].x === gappleX && python[0].y === gappleY){
@@ -238,48 +288,119 @@ window.onload = function (){
                 break;
         }
     }
-    function checkGameOver(){
-        switch (true){
-            case (python[0].x < 0):
-                running = false;
-                break;
-            case (python[0].x >= width):
-                running = false;
-                break;
-            case (python[0].y < 0):
-                running = false;
-                break;
-            case (python[0].y >= height):
-                running = false;
-                break;
-        }
 
-        for(let i = 1; i< python.length; i++ ){
-            if (python[i].x === python[0].x && python[i].y === python[0].y ){
-                running = false;
+    //Portal
+    // let portal1 = [];
+    // for(let i = 0; i < 10; i++){
+    //     portal1.push({x:portal1X+(unitSize*i),y:-20});
+    // }
+    // let portal2 = [];
+    // for(let i =0; i < 10; i++){
+    //     portal2.push({x:portal2X+(unitSize*i),y:height});
+    // }
+    function createPortal(){
+        let portalW=10;
+        let portalH=8;
+        context.fillStyle = portalColor;
+        context.fillRect(portal1X,portal1Y,unitSize*portalW,unitSize)
+        portal1X = unitSize*15;
+        portal1Y = -16;
+
+        context.fillRect(portal2X,portal2Y,unitSize*portalW,unitSize)
+        portal2X = unitSize*15;
+        portal2Y = height-4;
+
+        context.fillRect(portal3X,portal3Y,unitSize,unitSize*portalH)
+        portal3X = -16;
+        portal3Y = unitSize*11;
+
+        context.fillRect(portal4X,portal4Y,unitSize,unitSize*portalH)
+        portal4X = width-4;
+        portal4Y = unitSize*11;
+    }
+    //Portal 1 --> Portal 2 ; Portal 3 --> Portal 4.
+
+    function checkGameOver(){
+        if(mode === 1) {
+            switch (running) {
+                case (python[0].x < 0):
+                    running = false;
+                    break;
+                case (python[0].x >= width):
+                    running = false;
+                    break;
+                case (python[0].y < 0):
+                    running = false;
+                    break;
+                case (python[0].y >= height):
+                    running = false;
+                    break;
+            }
+        }else if (mode === 2){
+            switch (running) {
+                case (python[0].x < 0):
+                    python[0].x = width;
+                    break;
+                case (python[0].x >= width):
+                    python[0].x = 0;
+                    break;
+                case (python[0].y < 0):
+                    python[0].y = height;
+                    break;
+                case (python[0].y >= height):
+                    python[0].y = 0;
+                    break;
+            }
+        }else if (mode ===3) {
+            // Go through the portal
+            switch (running) {
+                case (python[0].y < 0):
+                    if (python[0].x === 300 || python[0].x === 320 || python[0].x === 340 || python[0].x === 360  || python[0].x === 380 ||
+                        python[0].x === 400 || python[0].x === 420 || python[0].x === 440 || python[0].x === 460 || python[0].x === 480)
+                    {
+                        python[0].y = height;
+                    } else {
+                        running = false;
+                    }
+                    break;
+
+                case (python[0].y > height - 20):
+                    if (python[0].x === 300 || python[0].x === 320 || python[0].x === 340 || python[0].x === 360  || python[0].x === 380 ||
+                        python[0].x === 400 || python[0].x === 420 || python[0].x === 440 || python[0].x === 460 || python[0].x === 480)
+                    {
+                        python[0].y = 0;
+                    }else {
+                        running = false;
+                    }
+                    break;
+
+                case (python[0].x < 0):
+                    if (python[0].y === 220 || python[0].y === 240 || python[0].y === 260 || python[0].y === 280 ||
+                        python[0].y === 300 || python[0].y === 320 || python[0].y === 340 || python[0].y === 360)
+                    {
+                        python[0].x = width;
+                    } else {
+                        running = false;
+                    }
+                    break;
+
+                case (python[0].x > width - 20):
+                    if (python[0].y === 220 || python[0].y === 240 || python[0].y === 260 || python[0].y === 280 ||
+                        python[0].y === 300 || python[0].y === 320 || python[0].y === 340 || python[0].y === 360)
+                    {
+                        python[0].x = 0;
+                    } else {
+                        running = false;
+                    }
+                    break;
             }
         }
 
-    }
-    function createPortal(){
-        context.fillStyle = "cyan";
-        context.fillRect(portal1X,portal1Y,unitSize*8,unitSize)
-        portal1X = unitSize*16;
-        portal1Y = height-3;
-
-        context.fillRect(portal2X,portal2Y,unitSize*8,unitSize)
-        portal2X = unitSize*16;
-        portal2Y = -17;
-
-        context.fillRect(portal3X,portal3Y,unitSize,unitSize*8)
-        portal3X = -17;
-        portal3Y = unitSize*11;
-
-        context.fillRect(portal4X,portal4Y,unitSize,unitSize*8)
-        portal4X = width-3;
-        portal4Y = unitSize*11;
-    }
-    function throughPortal() {
+        for(let i = 1; i< python.length; i++ ){
+            if (python[i].x === python[0].x && python[i].y === python[0].y){
+                running = false;
+            }
+        }
 
     }
 
@@ -319,10 +440,9 @@ window.onload = function (){
         }
     }
 
-
     function resetGame(){
         if(!running){
-            gameSpeed = 110;
+            speed = 110;
             score = 0;
             xVelocity = 0;
             yVelocity = 0;
@@ -340,7 +460,6 @@ window.onload = function (){
             document.getElementById("gameOver").style.visibility = "hidden";
         }
     }
-
 
 }
 

@@ -16,9 +16,9 @@ body{
 }
 
 canvas{
-    width: 800px;
+    width: 850px;
     height: 600px;
-    padding: 5px;
+    padding: 6px;
     border: 8px double rgba(255, 255, 255, 0.5);
 }
 .title{
@@ -26,27 +26,31 @@ canvas{
     justify-content: center;
 }
 .title > h1{
+    background: rgba(0, 0, 0, 0.35);
     display: inline-block;
     margin: 8px auto 15px;
     font-family: Orbitron-M,sans-serif;
-    padding: 4px 15px 6px;
-    color: rgba(0, 255, 0, 0.65);
-    text-shadow: 0 0 10px lime;
-    letter-spacing: 2px;
-    border: 1px solid lime; border-radius: 5px;
-    box-shadow: 0 0 3px 2px lime,
-    0 0 10px rgba(0, 255, 0, 0.8),
-    0 0 30px rgba(0, 255, 0, 0.5);
-}
+    padding: 3px 25px 5px;
+    color: rgb(0, 255, 0);
+    text-shadow: 3px 2px 3px black;
+    letter-spacing: 4px;
+    border: 2px solid rgba(0, 255, 0, 0.5); border-radius: 10px;
+    box-shadow: 0 0 10px black,
+    0 0 20px rgba(0, 255, 0, 0.5);
+    font-size: 25px;
+}.title > h1:hover{
+     text-shadow: 3px 2px 10px lime;
+     cursor: pointer;
+ }
 #game-zone{
     position: relative;
     text-align: center ;
 }
 
 #board{
-    box-shadow: 0 0 5px 3px #232323,
-                0 0 25px 1px #8e8e8e;
-    border-radius: 5px;
+    box-shadow: 0 0 5px 3px #111111,
+                0 0 25px 5px #3c3c3c;
+    border-radius: 15px;
 }
 
 #gameOver{
@@ -127,36 +131,103 @@ canvas{
     list-style: upper-roman outside;
 
 }
-
-.buttons{
-    text-align: center;
+.menu{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    justify-content: space-around;
 }
-.buttons>.gameSpeed button{
-    margin: 15px 6px 3px 0;
+.buttons{
+    margin-right: 30%;
+    text-align: center;
+
+}
+#speed-toggle{
+    margin: 5px 0 0;   padding: 5px;
+    font: inherit; font-size: 15px;
+    border-radius: 5px;
+    border: 1px solid black;
+    background: linear-gradient(90deg,#232526,#414345);
+    color: white;
+    cursor: pointer;
+    letter-spacing: 1px;
+}
+#speed-toggle:hover{
+    text-shadow: 0 0 5px,
+    0 0 10px;
+}
+.gameSpeed{
+    visibility: hidden;
+}
+.gameSpeed button{
+    margin: 8px 6px 3px 0;
     padding: 5px 8px;
     background: black;
-    color: lime;
+    color: white;
     border-radius: 5px;
     border: 3px solid black;
-    text-shadow: 0 0 20px,
-    0 0 30px;
+    letter-spacing: 1px;
     cursor: pointer;
     font-weight: bold;
     font-family: Orbitron-M,sans-serif;
-    box-shadow: 0 0 2px 1px;
 }
-.buttons>.gameSpeed button:hover{
-    background: rgba(68, 68, 68, 0.51);
+.gameSpeed button:hover{
+    text-shadow: 0 0 5px,
+    0 0 10px;
 }
-.buttons>.gameSpeed button:active{
-    border: 3px solid;
-    outline: 1px solid ;
+.gameSpeed button:active{
+    border: 1px solid black;
+    outline: 2px solid ;
  }
-.buttons>div #normal{
+.gameSpeed #slow{
+    color: rgba(0, 255, 0, 0.8);
+}
+.gameSpeed #normal{
     color: yellow;
 }
-.buttons>div #fast{
+.gameSpeed #fast{
     color: red;
+}
+
+.mode{
+    margin-left: 30%;
+    text-align: center;
+}
+#mode-toggle{
+    font: inherit;
+    padding: 5px;
+    margin: 5px 0 0;
+    color: white;
+}
+.modes{
+    visibility: hidden;
+}
+.mode button{
+    margin: 8px 3px 3px 0;
+    padding: 5px 6px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.7), rgba(67, 67, 67, 0.7));
+    border-radius: 5px;
+    border: 3px solid black;
+    letter-spacing: 1px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: Orbitron-M,sans-serif;
+
+}
+.mode button:hover{
+    text-shadow: 0 0 5px,
+    0 0 10px;
+}
+.mode button:active{
+    outline: 2px solid;
+}
+.mode #classic{
+    color: white;
+}
+.mode #infinity{
+    color: cyan;
+}
+.mode #portal{
+    color: #c800ff;
 }
 
 #score, #highScore{
@@ -165,6 +236,12 @@ canvas{
     color: lime;
 }
 
+.copyright{
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    font-size: 15px; letter-spacing: 1px;
+}
 .unsupport{
     display: none;
 }
@@ -179,11 +256,17 @@ canvas{
 
     }
     canvas{
-        width: 650px;
+        width: 730px;
         height: 450px;
     }
     #rank{
-        display: none;
+
+        left: 2%;
+        width: 150px;
+        font-size: 15px ;
+    }
+    #rank>ol{
+        padding-left:30px ;
     }
 }
 
@@ -191,15 +274,18 @@ canvas{
 
     canvas{
         width: 550px;
-        height: 350px;
+        height: 450px;
+    }
+
+    #rank{
+        left: 1%;
+        width: 100px;
+        font-size: 15px ;
     }
 }
 
-@media screen and (max-width: 820px) {
 
-}
-
-@media screen and (max-width: 665px) {
+@media screen and (max-width: 800px) {
 
     canvas{
         width: 0;
@@ -210,6 +296,9 @@ canvas{
         display: none;
     }
     .buttons{
+        display: none;
+    }
+    .mode{
         display: none;
     }
     .unsupport{

@@ -5,7 +5,8 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Snake</title>
+    <title>snake</title>
+    <link rel="icon" type="image/x-icon" href="background/favicon.png">
 
     <link rel="stylesheet" href="snake.css">
     <script src="snake.js"></script>
@@ -33,17 +34,32 @@
             </ol>
         </div>
     </section>
-
-    <div class="buttons">
-        <div class="gameSpeed">
-            <button id="slow"   >Slow</button>
-            <button id="normal" >Normal</button>
-            <button id="fast"   >Fast</button>
+    <div class="menu">
+        <div class="mode">
+            <button id="mode-toggle">Game Modes</button>
+            <div class="modes">
+                <button id="classic"    >Classic</button>
+                <button id="infinity"   >Infinity</button>
+                <button id="portal"     >Portal</button>
+            </div>
+        </div>
+        <div class="buttons">
+            <button id="speed-toggle">Speed Control</button>
+            <div class="gameSpeed">
+                <button id="slow"   >Slow</button>
+                <button id="normal" >Normal</button>
+                <button id="fast"   >Fast</button>
+            </div>
         </div>
     </div>
 
     <div class="unsupport">
         <h1>This is an unsupported screen-size.</h1>
     </div>
+
+    <div class="copyright">
+        <h2>&copy; Devchitect</h2>
+    </div>
+
 </body>
 </html>
