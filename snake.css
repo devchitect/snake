@@ -239,7 +239,7 @@ canvas{
 .copyright{
     position: absolute;
     bottom: 10px;
-    left: 20px;
+    right: 30px;
     font-size: 15px; letter-spacing: 1px;
 }
 .unsupport{
