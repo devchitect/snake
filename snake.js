@@ -31,7 +31,7 @@ window.onload = function (){
     let portal1Y,portal2Y,portal3Y,portal4Y;
 
     let speed = 111, speedMode = false;
-    let mode = 3;
+    let mode = 2;
 
     let python =[
         {x:unitSize*2   ,y:unitSize*10},
@@ -107,6 +107,7 @@ window.onload = function (){
             if(score > 50){speed=70}
             if(score > 65){speed=60}
             if(score > 80){speed=50}
+            if(score > 100){speed=45}
             if(score > 120){speed=40}
             if(score > 135){speed=35}
         }
