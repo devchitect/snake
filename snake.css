@@ -16,9 +16,9 @@ body{
 }
 
 canvas{
-    width: 850px;
+    width: 900px;
     height: 600px;
-    padding: 6px;
+    padding: 10px;
     border: 8px double rgba(255, 255, 255, 0.5);
 }
 .title{
