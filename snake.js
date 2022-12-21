@@ -225,6 +225,7 @@ window.onload = function (){
 
     //!! Important
     function movePython(){
+        //moving the head
         const head = {x:python[0].x + xVelocity,
                       y:python[0].y + yVelocity};
 
@@ -236,20 +237,22 @@ window.onload = function (){
             locateApple();
 
             if(score % 5 === 0){
-                locateGapple();
+                setTimeout(locateGapple,2000);
+                setTimeout(hideGapple,10000);
                 setInterval(()=> {
                     context.fillStyle = "black";
                     context.fillRect(gappleX+4,gappleY+4,unitSize*2-8,unitSize*2-8)}
                     ,600);
-                setTimeout(hideGapple,8000);
+
             }
             if(score % 20 === 0){
-                locatePapple();
+                setTimeout(locatePapple,3000);
+                setTimeout(hidePapple,8000);
                 setInterval(()=> {
                         context.fillStyle = "black";
-                        context.fillRect(pappleX,pappleY,unitSize,unitSize);}
+                        context.fillRect(pappleX,pappleY,unitSize,unitSize)}
                     ,750);
-                setTimeout(hidePapple,5000);
+
             }
         }else if(python[0].x === gappleX && python[0].y === gappleY
                 || python[0].x === gappleX+unitSize && python[0].y === gappleY
