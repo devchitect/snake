@@ -37,7 +37,7 @@ window.onload = function (){
         {x:unitSize*8   ,y:unitSize*25},
         {x:unitSize*8   ,y:unitSize*25},
     ];
-    
+
 
     window.addEventListener("keyup",changeDirection);
     resetBtn.addEventListener("click",resetGame);
@@ -467,17 +467,14 @@ window.onload = function (){
 
     function resetGame(){
         if(!running){
-            speed = 110;
+            speed = 123;
             score = 0;
             xVelocity = 0;
             yVelocity = 0;
 
-            function randomNum(num){
-                return Math.round((Math.random() * (num) / unitSize)) * unitSize;
-            }
-
             python =[
-                {x:randomNum(width-unitSize),y:randomNum(height-unitSize)},
+                {x:randomLocation(width-unitSize),y:randomLocation(height-unitSize)},
+                {x:randomLocation(width-unitSize),y:randomLocation(height-unitSize)},
             ];
 
             gameStart()
