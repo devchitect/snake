@@ -30,12 +30,14 @@ window.onload = function (){
     let portal1X,portal2X,portal3X,portal4X;
     let portal1Y,portal2Y,portal3Y,portal4Y;
 
-    let speed = 111, speedMode = false;
+    let speed = 123, speedMode = false;
     let mode = 2;
 
     let python =[
-        {x:unitSize*2   ,y:unitSize*10},
+        {x:unitSize*8   ,y:unitSize*25},
+        {x:unitSize*8   ,y:unitSize*25},
     ];
+    
 
     window.addEventListener("keyup",changeDirection);
     resetBtn.addEventListener("click",resetGame);
@@ -85,9 +87,9 @@ window.onload = function (){
         running = true;
 
         if(mode === 3){createPortal();}
-        locateApple();
+        setTimeout(locateApple,500);
         drawApple();
-        locateGapple();
+        setTimeout(locateGapple,3000);
         drawGapple();
         frame();
 
@@ -101,17 +103,16 @@ window.onload = function (){
         context.fillStyle = "lime";
         context.fillText("  " + score, unitSize*4,30 );
         if(!speedMode){
-            if(score > 10){speed=100}
-            if(score > 20){speed=90}
-            if(score > 30){speed=80}
-            if(score > 50){speed=70}
-            if(score > 65){speed=60}
-            if(score > 80){speed=50}
-            if(score > 100){speed=45}
+            if(score > 10){speed=110}
+            if(score > 20){speed=100}
+            if(score > 30){speed=90}
+            if(score > 50){speed=80}
+            if(score > 65){speed=75}
+            if(score > 80){speed=55}
+            if(score > 100){speed=44}
             if(score > 120){speed=40}
-            if(score > 135){speed=35}
+            if(score > 150){speed=35}
         }
-
         console.log(speed);
     }
 
@@ -119,14 +120,14 @@ window.onload = function (){
         if(running){
             setTimeout(()=>{
                 clearBoard();
-                if(mode === 3){createPortal();}
+                if(mode === 3){createPortal()}
                 drawScore();
                 drawApple();
                 drawGapple();
                 drawPapple();
                 movePython();
                 drawPython();
-                checkGameOver();
+               checkGameOver();
                 frame();
 
             },speed);
@@ -156,46 +157,35 @@ window.onload = function (){
         }
     }
 
-    function locateApple(){
-        function randomApple(num){
-            return Math.round((Math.random() * (num) / unitSize)) * unitSize;
-        }
 
-        if(appleX === gappleX && appleY === gappleY ||
-            appleX === gappleX+unitSize && appleY === gappleY ||
-            appleX === gappleX && appleY === gappleY+unitSize ||
-            appleX === gappleX+unitSize && appleY === gappleY+unitSize)
+    function randomLocation(num){
+        return Math.round((Math.random() * (num) / unitSize)) * unitSize;
+    }
+    function locateApple(){
+        if(appleX === gappleX && appleY === gappleY
+            || appleX === gappleX+unitSize && appleY === gappleY
+            || appleX === gappleX && appleY === gappleY+unitSize
+            || appleX === gappleX+unitSize && appleY === gappleY+unitSize)
         {
-            appleX = randomApple(width-unitSize);
-            appleY = randomApple(height-unitSize);
+            appleX = randomLocation(width-unitSize);
+            appleY = randomLocation(height-unitSize);
         }else{
-            appleX = randomApple(width-unitSize);
-            appleY = randomApple(height-unitSize);
+            appleX = randomLocation(width-unitSize);
+            appleY = randomLocation(height-unitSize);
         }
     }
     function locateGapple(){
-        function randomGapple(num){
-            return Math.round((Math.random() * (num) / unitSize)) * unitSize;
-        }
-        if(appleX === gappleX && appleY === gappleY ||
-            appleX === gappleX+unitSize && appleY === gappleY ||
-            appleX === gappleX && appleY === gappleY+unitSize ||
-            appleX === gappleX+unitSize && appleY === gappleY+unitSize)
-        {
-            gappleX = randomGapple(width-unitSize*2);
-            gappleY = randomGapple(height-unitSize*2);
-        }else {
-            gappleX = randomGapple(width-unitSize*2);
-            gappleY = randomGapple(height-unitSize*2);
-        }
-
+            gappleX = randomLocation(width-unitSize*2);
+            gappleY = randomLocation(height-unitSize*2);
     }
     function locatePapple(){
-        function randomPapple(num){
-            return Math.round((Math.random() * (num) / unitSize)) * unitSize;
+        if (pappleX === appleX && pappleY === appleY || pappleX === gappleX && pappleX === pappleY) {
+            pappleX = randomLocation(width - unitSize);
+            pappleY = randomLocation(height - unitSize);
+        }else{
+            pappleX = randomLocation(width - unitSize);
+            pappleY = randomLocation(height - unitSize);
         }
-        pappleX = randomPapple(width-unitSize);
-        pappleY = randomPapple(height-unitSize);
     }
     function drawApple(){
         context.fillStyle = appleColor;
@@ -204,9 +194,6 @@ window.onload = function (){
     function drawGapple(){
         context.fillStyle = gappleColor;
         context.fillRect(gappleX+4,gappleY+4,unitSize*2-8,unitSize*2-8 );
-        // context.fillRect(gappleX+unitSize,gappleY,unitSize,unitSize);
-        // context.fillRect(gappleX,gappleY+unitSize,unitSize,unitSize);
-        // context.fillRect(gappleX+unitSize,gappleY+unitSize,unitSize,unitSize);
         context.strokeStyle = "black";
         context.strokeRect(gappleX+4,gappleY+4,unitSize*2-8,unitSize*2-8)
         context.strokeRect(gappleX+5,gappleY+5,unitSize*2-10,unitSize*2-10)
@@ -214,7 +201,8 @@ window.onload = function (){
     function drawPapple(){
         context.fillStyle = pappleColor;
         context.fillRect(pappleX,pappleY,unitSize,unitSize);
-
+        context.strokeStyle = "black";
+        context.strokeRect(pappleX+1,gappleY+1,unitSize*2-2,unitSize*2-2)
     }
 
     function hideGapple(){
@@ -263,10 +251,10 @@ window.onload = function (){
                     ,750);
                 setTimeout(hidePapple,5000);
             }
-        }else if(python[0].x === gappleX && python[0].y === gappleY ||
-                python[0].x === gappleX+unitSize && python[0].y === gappleY ||
-                python[0].x === gappleX && python[0].y === gappleY+unitSize ||
-                python[0].x === gappleX+unitSize && python[0].y === gappleY+unitSize){
+        }else if(python[0].x === gappleX && python[0].y === gappleY
+                || python[0].x === gappleX+unitSize && python[0].y === gappleY
+                || python[0].x === gappleX && python[0].y === gappleY+unitSize
+                || python[0].x === gappleX+unitSize && python[0].y === gappleY+unitSize){
             score+= 3;
             hideGapple();
         }else if(python[0].x === pappleX && python[0].y === pappleY){
@@ -432,12 +420,13 @@ window.onload = function (){
             }
         }
 
-        for(let i = 1; i< python.length; i++ ){
-            if (python[i].x === python[0].x && python[i].y === python[0].y){
-                running = false;
+        if(python.length > 1) {
+            for (let i = 2; i < python.length; i++) {
+                if (python[i].x === python[0].x && python[i].y === python[0].y) {
+                    running = false;
+                }
             }
         }
-
     }
 
     function gameOver(){
