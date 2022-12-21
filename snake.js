@@ -150,7 +150,7 @@ window.onload = function (){
             context.strokeRect(2,2,width-4,height-4);
         }
         if(mode === 3){
-            context.strokeStyle = "#c800ff";
+            context.strokeStyle = "rgba(200,0,255,0.6)";
             context.strokeRect(0,0,width,height);
             context.strokeRect(1,1,width-2,height-2);
         }
@@ -160,16 +160,35 @@ window.onload = function (){
         function randomApple(num){
             return Math.round((Math.random() * (num) / unitSize)) * unitSize;
         }
-        appleX = randomApple(width-unitSize);
-        appleY = randomApple(height-unitSize);
 
+        if(appleX === gappleX && appleY === gappleY ||
+            appleX === gappleX+unitSize && appleY === gappleY ||
+            appleX === gappleX && appleY === gappleY+unitSize ||
+            appleX === gappleX+unitSize && appleY === gappleY+unitSize)
+        {
+            appleX = randomApple(width-unitSize);
+            appleY = randomApple(height-unitSize);
+        }else{
+            appleX = randomApple(width-unitSize);
+            appleY = randomApple(height-unitSize);
+        }
     }
     function locateGapple(){
         function randomGapple(num){
             return Math.round((Math.random() * (num) / unitSize)) * unitSize;
         }
-        gappleX = randomGapple(width-unitSize);
-        gappleY = randomGapple(height-unitSize);
+        if(appleX === gappleX && appleY === gappleY ||
+            appleX === gappleX+unitSize && appleY === gappleY ||
+            appleX === gappleX && appleY === gappleY+unitSize ||
+            appleX === gappleX+unitSize && appleY === gappleY+unitSize)
+        {
+            gappleX = randomGapple(width-unitSize*2);
+            gappleY = randomGapple(height-unitSize*2);
+        }else {
+            gappleX = randomGapple(width-unitSize*2);
+            gappleY = randomGapple(height-unitSize*2);
+        }
+
     }
     function locatePapple(){
         function randomPapple(num){
@@ -180,15 +199,22 @@ window.onload = function (){
     }
     function drawApple(){
         context.fillStyle = appleColor;
-        context.fillRect(appleX,appleY,unitSize,unitSize);
+        context.fillRect(appleX+2.5,appleY+2.5,unitSize-5,unitSize-5);
     }
     function drawGapple(){
         context.fillStyle = gappleColor;
-        context.fillRect(gappleX,gappleY,unitSize,unitSize);
+        context.fillRect(gappleX+4,gappleY+4,unitSize*2-8,unitSize*2-8 );
+        // context.fillRect(gappleX+unitSize,gappleY,unitSize,unitSize);
+        // context.fillRect(gappleX,gappleY+unitSize,unitSize,unitSize);
+        // context.fillRect(gappleX+unitSize,gappleY+unitSize,unitSize,unitSize);
+        context.strokeStyle = "black";
+        context.strokeRect(gappleX+4,gappleY+4,unitSize*2-8,unitSize*2-8)
+        context.strokeRect(gappleX+5,gappleY+5,unitSize*2-10,unitSize*2-10)
     }
     function drawPapple(){
         context.fillStyle = pappleColor;
         context.fillRect(pappleX,pappleY,unitSize,unitSize);
+
     }
 
     function hideGapple(){
@@ -197,7 +223,7 @@ window.onload = function (){
         context.clearRect(gappleX,gappleY,unitSize,unitSize);
         gappleX = gappleY = -100;
         context.fillStyle = "black";
-        context.fillRect(tempX,tempY,unitSize,unitSize);
+        context.fillRect(tempX,tempY,unitSize*2-4,unitSize*2-4);
     }
     function hidePapple(){
         let tempX = pappleX;
@@ -206,6 +232,7 @@ window.onload = function (){
         pappleX = pappleY = -50;
         context.fillStyle = "black";
         context.fillRect(tempX,tempY,unitSize,unitSize);
+
     }
 
     //!! Important
@@ -215,16 +242,18 @@ window.onload = function (){
 
             python.unshift(head);
         //eat apple
+
         if(python[0].x === appleX && python[0].y === appleY){
             score+= 1;
             locateApple();
+
             if(score % 5 === 0){
                 locateGapple();
                 setInterval(()=> {
                     context.fillStyle = "black";
-                    context.fillRect(gappleX,gappleY,unitSize,unitSize);}
-                    ,500);
-                setTimeout(hideGapple,9000);
+                    context.fillRect(gappleX+4,gappleY+4,unitSize*2-8,unitSize*2-8)}
+                    ,600);
+                setTimeout(hideGapple,8000);
             }
             if(score % 20 === 0){
                 locatePapple();
@@ -232,9 +261,12 @@ window.onload = function (){
                         context.fillStyle = "black";
                         context.fillRect(pappleX,pappleY,unitSize,unitSize);}
                     ,750);
-                setTimeout(hidePapple,4500);
+                setTimeout(hidePapple,5000);
             }
-        }else if(python[0].x === gappleX && python[0].y === gappleY){
+        }else if(python[0].x === gappleX && python[0].y === gappleY ||
+                python[0].x === gappleX+unitSize && python[0].y === gappleY ||
+                python[0].x === gappleX && python[0].y === gappleY+unitSize ||
+                python[0].x === gappleX+unitSize && python[0].y === gappleY+unitSize){
             score+= 3;
             hideGapple();
         }else if(python[0].x === pappleX && python[0].y === pappleY){
@@ -245,13 +277,16 @@ window.onload = function (){
         }
 
     }
+
     function drawPython(){
         context.fillStyle= pythonColor;
         context.strokeStyle = pythonBorder;
         python.forEach(part => {
-            context.fillRect(part.x,part.y,unitSize,unitSize);
-            context.strokeRect(part.x,part.y,unitSize,unitSize);
+            context.fillRect(part.x+2,part.y+2,unitSize-4,unitSize-4);
+
         })
+        context.fillStyle = "black";
+        context.fillRect(python[0].x+5,python[0].y+5,10,10)
 
     }
     function changeDirection(event){
