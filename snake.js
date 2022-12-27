@@ -211,7 +211,7 @@ window.onload = function (){
         context.clearRect(gappleX,gappleY,unitSize,unitSize);
         gappleX = gappleY = -100;
         context.fillStyle = "black";
-        context.fillRect(tempX,tempY,unitSize*2-4,unitSize*2-4);
+        context.fillRect(tempX,tempY,unitSize*2,unitSize*2);
     }
     function hidePapple(){
         let tempX = pappleX;
@@ -233,33 +233,35 @@ window.onload = function (){
         //eat apple
 
         if(python[0].x === appleX && python[0].y === appleY){
-            score+= 1;
-            locateApple();
-
             if(score % 5 === 0){
                 setTimeout(locateGapple,2000);
-                setTimeout(hideGapple,10000);
                 setInterval(()=> {
-                    context.fillStyle = "black";
-                    context.fillRect(gappleX+4,gappleY+4,unitSize*2-8,unitSize*2-8)}
+                        context.fillStyle = "black";
+                        context.fillRect(gappleX,gappleY,unitSize*2,unitSize*2)}
                     ,600);
-
+                setTimeout(hideGapple,10000);
             }
             if(score % 20 === 0){
                 setTimeout(locatePapple,3000);
-                setTimeout(hidePapple,8000);
                 setInterval(()=> {
                         context.fillStyle = "black";
                         context.fillRect(pappleX,pappleY,unitSize,unitSize)}
                     ,750);
-
+                setTimeout(hidePapple,8000);
             }
+        }
+
+        if(python[0].x === appleX && python[0].y === appleY){
+            score+= 1;
+            locateApple();
+
         }else if(python[0].x === gappleX && python[0].y === gappleY
                 || python[0].x === gappleX+unitSize && python[0].y === gappleY
                 || python[0].x === gappleX && python[0].y === gappleY+unitSize
                 || python[0].x === gappleX+unitSize && python[0].y === gappleY+unitSize){
             score+= 3;
             hideGapple();
+
         }else if(python[0].x === pappleX && python[0].y === pappleY){
             score+=6;
             hidePapple();
